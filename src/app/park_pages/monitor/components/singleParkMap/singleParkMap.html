@@ -1,0 +1,43 @@
+<div class="row single-park-map">
+
+  <div class="main-map" [ngClass]="{'col-lg-12 col-md-12 col-sm-12 ': !show,'col-lg-7 col-md-7 col-sm-12 ':show}"
+       [@mapAnimate]="mapState">
+    <ba-card title="炬能大厦停车场监控" search="{{gridHeaderName}}" baCardClass="main-map-bacard" (onCardSearch)="onCardSearch($event)">
+      <ba-amap #singleParkMap baAmapClass="main-amap"
+               [initZoom] = "12"
+               [initBaseLayersData]="initBaseLayersData"
+               [initOverLayersData]="initOverLayersData"
+               (onLoadOverlayLayersData)="onLoadOverlayLayersData($event)"
+               (onChangeCurrentView)="onChangeCurrentView($event)"
+               (onChangeCurrentData)="onChangeCurrentData($event)"></ba-amap>
+    </ba-card>
+  </div>
+  <div class="link-grid col-lg-5 col-md-5 col-sm-12" [hidden]="!show" [@linkGridAnimate]="gridState">
+    <p-dataGrid [value]="places" [paginator]="true" [rows]="12">
+      <p-header>
+        {{gridHeaderName}}
+        <a class="ui-datascroller-hide" (click)="onGridHide()">隐藏?</a>
+      </p-header>
+      <ng-template let-place pTemplate="item">
+        <div class="ui-g-12 ui-md-2 place-detail">
+          <p-panel [header]="place.id" [styleClass]="setPlaceClass(place)">
+            <div class="place-img">
+              <img *ngIf="place.carType == '1' " src="{{ ( 'app/map/car_white.png' | baAppPicture ) }}" alt=""/>
+              <img *ngIf="place.carType == '0' " src="{{ ( 'app/map/car_yellow.png' | baAppPicture ) }}" alt=""/>
+            </div>
+            <hr class="ui-widget-content" style="border-top:0">
+            <div *ngIf="place.state == '0' " class="place-car">空闲</div>
+            <div *ngIf="place.state == '1' " class="place-car">{{place.carNo}}</div>
+            <div *ngIf="place.state == '2' " class="place-car">停用</div>
+
+          </p-panel>
+
+        </div>
+      </ng-template>
+    </p-dataGrid>
+
+  </div>
+
+
+</div>
+

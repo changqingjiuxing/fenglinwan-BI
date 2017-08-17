@@ -1,0 +1,59 @@
+:host /deep/ .single-park-map {
+
+  .main-map {
+    height: calc(100vh - 223px);
+  }
+  .main-map-bacard {
+    height: 100%;
+  }
+  .main-amap {
+    height: 100%;
+  }
+  .link-grid {
+    height: calc(100vh - 223px);
+  }
+  .datascroller-grid {
+    height: 100%;
+  }
+  .ui-grid-row > div {
+    padding-top: 5px;
+    padding-right: 0;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    font-size: 14px;
+  }
+  .ui-grid-row .ui-grid-row > div:last-child {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .card {
+    > .card-body {
+      padding: 0;
+      height: 100%;
+    }
+  }
+  .place-detail {
+    padding: 2px;
+    text-align: center;
+    .place-no-used {
+      background-color: #3aaf5e;
+    }
+    .place-used {
+      background-color: #027faf;
+    }
+    .place-stop-used {
+      background-color: #afa69f;
+    }
+    .place-car {
+      font-size: 10px;
+    }
+    .place-img {
+      width: 20px;
+      height: 39px;
+      text-align: center;
+      margin: auto;
+      padding: 0;
+    }
+  }
+}
+

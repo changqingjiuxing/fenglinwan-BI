@@ -1,0 +1,249 @@
+<div class=" public-park">
+  <!-- 停车场列表 -->
+  <table id="showcase-example-1" class="table" data-show-toggle="true" data-paging="true" data-filtering="true"
+         data-sorting="true" data-editing="true" data-state="true"></table>
+
+  <!-- 添加、修改弹出层 -->
+  <div class="modal fade" id="editor-modal" role="dialog" aria-labelledby="editor-title">
+    <style scoped>
+      /* provides a red astrix to denote required fields - this should be included in common stylesheet */
+      .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+        margin-left: 4px;
+      }
+    </style>
+    <div class="modal-dialog modal-dialog-form" role="document">
+      <form class="modal-content" id="editor">
+        <div class="modal-header">
+          <h4 class="modal-title" id="editor-title">添加停车场</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editor-id" name="editor-id" class="hidden"/>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group required">
+                <label for="editor-no" class="control-label">编号</label>
+                <input type="text" class="form-control" id="editor-no" name="no" placeholder="编号" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group required">
+                <label for="editor-name" class="control-label">名称</label>
+                <input type="text" class="form-control" id="editor-name" name="name" placeholder="名称" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input type="hidden" id="editor-region-id" name="editor-region-id" class="hidden"/>
+                <label for="editor-region-name" class=" control-label">区域</label>
+                <select class="form-control" id="editor-region-name" name="from-region-name">
+                  <option value="101">历下区</option>
+                  <option value="101">市中区</option>
+                  <option value="101">槐荫区</option>
+                  <option value="101">高新区</option>
+                  <option value="101">历城区</option>
+                  <option value="101">长清区</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="editor-road-name" class=" control-label">所在道路</label>
+                <select class="form-control" id="editor-road-name" name="editor-road-name">
+                  <option value="101">经十路</option>
+                  <option value="101">纬六路</option>
+                  <option value="101">世纪大道</option>
+                  <option value="101">黄台南路</option>
+                  <option value="101">新泺大街</option>
+                  <option value="101">解放路</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group required">
+                <label for="editor-coordinate" class=" control-label">中心点坐标</label>
+                <input type="text" class="form-control custom-input-cursor" id="editor-coordinate" name="coordinate" placeholder="中心点坐标" (click)="mapModalShow(this)" readonly >
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group required">
+                <label for="editor-creattime" class=" control-label">建设时间</label>
+                <input type="date" class="form-control" id="editor-creattime" name="editor-creattime" placeholder="建设时间">
+              </div>
+            </div>
+          </div>
+          <div class="form-group ">
+            <label for="editor-poi" class=" control-label">周边地理标注物</label>
+            <input type="text" class="form-control" id="editor-poi" name="editor-poi" placeholder="周边地理标注物">
+          </div>
+          <div class="form-group ">
+            <label for="editor-location" class=" control-label">位置描述</label>
+            <input type="text" class="form-control" id="editor-location" name="editor-location" placeholder=" XXX路至XXX路（东西南北、双侧）侧">
+          </div>
+          <div class="form-group">
+            <label for="editor-path" class=" control-label">电子围栏</label>
+            <input type="text" class="form-control custom-input-curser" id="editor-path" name="editor-path" placeholder="电子围栏" (click)="mapDrawModalShow(this)" readonly >
+          </div>
+          <div class="checkbox">
+            <ba-checkbox [(ngModel)]="isCreatePlaces" [label]="'是否自动批量生成泊位'" [ngModelOptions]="{standalone: true}"
+                         baCheckboxClass="has-warning checkbox"                [id]="'createPlaces'">
+              ></ba-checkbox>
+          </div>
+          <div class="checkbox">
+            <ba-checkbox [(ngModel)]="isCreateAreas" [label]="'是否自动配置分区'" [ngModelOptions]="{standalone: true}"
+                         baCheckboxClass="has-success  checkbox"   [id]="'createAreas'"
+            ></ba-checkbox>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >保存</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal fade" id="places-modal" role="dialog" aria-labelledby="places-title">
+    <div class="modal-dialog modal-dialog-form" role="document">
+      <form class="modal-content" id="places">
+        <div class="modal-header">
+          <h4 class="places-title" id="places-title">批量生成泊位</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group required">
+                <label for="places-count" class="control-label">泊位数量</label>
+                <input type="text" class="form-control" id="places-count" name="places-count" placeholder="泊位数量" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group required">
+                <label for="places-begin-no" class="control-label">泊位开始编号</label>
+                <input type="text" class="form-control" id="places-begin-no" name="places-begin-no" placeholder="泊位开始编号" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >批量生成</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">稍后设置</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal fade" id="areas-modal" role="dialog" aria-labelledby="areas-title">
+    <div class="modal-dialog modal-dialog-form" role="document">
+      <form class="modal-content" id="areas">
+        <div class="modal-header">
+          <h4 class="creatArea-title" id="areas-title">批量生成分区</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group required">
+                <label for="areas-no" class="control-label">分区名称</label>
+                <input type="text" class="form-control" id="areas-no" name="areas-no" placeholder="分区名称" required>
+              </div>
+              <button type="submit" class="btn btn-primary" >增加</button>
+              <button type="submit" class="btn btn-primary" >修改</button>
+              <button type="submit" class="btn btn-primary" >删除</button>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="exampleSelect2">分区列表</label>
+                <select multiple class="form-control" id="exampleSelect2">
+                  <option style="color: #2d2d2d">分区A</option>
+                  <option style="color: #2d2d2d">分区B</option>
+                  <option style="color: #2d2d2d">分区C</option>\
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <p-pickList [source]="list1" [target]="list2"[dragdrop]="true" [responsive]="true"
+                            [showSourceControls]="false" [showTargetControls]="false"
+                            filterBy="vin" sourceFilterPlaceholder="未分配泊位"
+                            targetFilterPlaceholder="已分配泊位"
+                            [metaKeySelection]="false">
+                  <ng-template let-car pTemplate="item">
+                    <div class="ui-helper-clearfix">
+
+                      <div style="font-size:14px;float:right;margin:10px 10px 0 0">{{car.vin}}</div>
+                    </div>
+                  </ng-template>
+                </p-pickList>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >批量生成</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">稍后设置</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal fade" id="chargeModal" tabindex="-1" role="dialog" aria-labelledby="chargeModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="chargeModalLabel">缴费标准</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table id="modal-charge" class="table" data-paging="true" data-filtering="true" data-sorting="true"></table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="departmentModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="departmentModalLabel">运维单位</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table id="modal-department" class="table" data-paging="true" data-filtering="true" data-sorting="true"></table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="stateModal" tabindex="-1" role="dialog" aria-labelledby="stateModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="stateModalLabel">提示</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          您确定要将XXX停车场的状态从启用变为停用吗？
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

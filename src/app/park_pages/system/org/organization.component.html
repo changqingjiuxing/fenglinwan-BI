@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-lg-3">
+    <ba-card title="组织机构树">
+      <p-tree [value]="filesTree" draggable="true" droppable="true"
+              draggableNodes="true" dragdropScope="files" (onNodeSelect)="nodeSelect($event)"
+              selectionMode="single" [(selection)]="selectedFile"></p-tree>
+    </ba-card>
+  </div>
+
+  <div class="col-sm-6 col-md-6 col-lg-9">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <system-org-unit (delete)="showDelDialog($event)"></system-org-unit>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <system-org-dept></system-org-dept>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <system-org-position (changeRole)="showDialog()"></system-org-position>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <system-org-person></system-org-person>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="权限分配" [(visible)]="display" [modal]="true">
+  <p-pickList [source]="list1" [target]="list2" sourceHeader="可分配权限"
+              targetHeader="已分配权限" [dragdrop]="true" [responsive]="true"
+              [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}"
+              filterBy="vin" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand"
+              [metaKeySelection]="false">
+    <ng-template let-car pTemplate="item">
+      <div class="ui-helper-clearfix">
+        <img src="assets/images/{{car.brand}}.gif" style="display:inline-block;float:left;margin:2px 0 2px 2px"
+             width="48">
+        <div style="font-size:14px;float:right;margin:10px 10px 0 0">{{car.vin}}--{{car.brand}}</div>
+      </div>
+    </ng-template>
+  </p-pickList>
+</p-dialog>
+
+<p-dialog header="删除警告" width="300" [responsive]="true" [(visible)]="deleteDisplay" [modal]="true">
+  <br>
+  <p><li class="fa fa-times"></li>&nbsp;您确定要删除{{params}}么？</p>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
+    <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
+  </p-footer>
+</p-dialog>

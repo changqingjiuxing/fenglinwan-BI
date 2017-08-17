@@ -1,0 +1,9 @@
+[
+  {"name":"id","title":"地表编号","breakpoints":"xs sm","type":"number","style":{"width":80,"maxWidth":80}},
+  {"name":"name","title":"名称","visible":true,"filterable":true},
+  {"name":"type","title":"类型","visible":true,"breakpoints":"all","filterable":true},
+  {"name":"size","title":"尺寸","visible":true,"filterable":true},
+  {"name":"coordinate","title":"坐标","visible":true,"breakpoints":"all","filterable":true},
+  {"name":"area","title":"所在分区","visible":true,"filterable":true},
+  {"name":"status","title":"状态"}
+]

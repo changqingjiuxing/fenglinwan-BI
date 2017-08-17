@@ -1,0 +1,14 @@
+<div class="content-top clearfix">
+<!--
+  <h1 class="al-title" translate>{{ activePageTitle }}</h1>
+-->
+
+  <ul class="breadcrumb al-breadcrumb">
+    <li class="breadcrumb-item">
+      <a routerLink="/park-pages/dashboard" translate>{{'general.home'}}</a>
+    </li>
+    <li class="breadcrumb-item active" translate>
+      <a   class="child-a" routerLink="{{activePagePath}}" translate> {{ activePageTitle }}</a>
+     </li>
+  </ul>
+</div>

@@ -1,0 +1,182 @@
+<div class="row park-moniter">
+
+  <div id="amap" [ngClass]="{'col-lg-12 col-md-12 col-sm-12 ': !show,'col-lg-9 col-md-8 col-sm-12 ':show}"
+       [@amapAnimate]="amapState">
+    <ba-card title="高德地图" search="{{gridHeaderName}}" (onCardSearch)="onCardSearch($event)">
+      <ba-amap #amap baAmapClass="amaps" [initBaseLayersData]="initBaseLayersData"
+               [initOverLayerData]="initOverLayerData" (onLoadOverlayLayersData)="onLoadOverlayLayersData($event)"
+               (onChangeCurrentView)="onChangeCurrentView($event)"
+               (onChangeCurrentData)="onChangeCurrentData($event)"></ba-amap>
+    </ba-card>
+  </div>
+
+  <div id="amapGrid" class="col-lg-3 col-md-4 col-sm-12 mapGrid" [hidden]="!show" [@amapGridAnimate]="amapGridState">
+    <p-dataScroller *ngIf=" currentLayer.showId=='all' " [value]="regions" [rows]="5" [inline]="true"
+                    scrollHeight="385px" [lazy]="true">
+      <p-header>
+        {{gridHeaderName}}
+        <a class="ui-datascroller-hide" (click)="onGridHide()">隐藏?</a>
+      </p-header>
+      <ng-template let-region pTemplate="item">
+        <div class="ui-grid ui-grid-responsive ui-fluid"
+             style="font-size:16px;padding:10px;border-bottom:1px solid #D5D5D5;" (mouseover)="onGridMouseOver(region)"
+             (mouseout)="onGridMouseout(region)">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12" style="text-align:center;">
+              <i (click)="onLocation(region)"
+                 style="cursor:pointer;font-size: 24px;font-style: normal">{{region.name}}</i>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+              <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-8">停车收费道路:</div>
+                  <div class="ui-grid-col-4">{{region.roadCount}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-8">收费道路占比:</div>
+                  <div class="ui-grid-col-4">{{region.roadRate}}%</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-8">路侧泊位:</div>
+                  <div class="ui-grid-col-4">{{region.roadPlaceCount}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-8">停车场:</div>
+                  <div class="ui-grid-col-4">{{region.parkCount}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-8">停车场泊位:</div>
+                  <div class="ui-grid-col-4">{{region.parkPlaceCount}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataScroller>
+    <p-dataScroller *ngIf=" currentLayer.showId=='road' " [value]="roads" [rows]="5" [inline]="true"
+                    scrollHeight="385px" [lazy]="true">
+      <p-header>
+        {{gridHeaderName}}
+        <a class="ui-datascroller-hide" (click)="onGridHide()">隐藏?</a>
+      </p-header>
+      <ng-template let-road pTemplate="item">
+        <div class="ui-grid ui-grid-responsive ui-fluid"
+             style="font-size:16px;padding:10px;border-bottom:1px solid #D5D5D5;" (mouseover)="onGridMouseOver(road)"
+             (mouseout)="onGridMouseout(road)">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12" style="text-align:center;">
+              <i (click)="onLocation(road)" style="cursor:pointer;font-size: 24px;font-style: normal">{{road.name}}</i>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+              <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">所属单位:</div>
+                  <div class="ui-grid-col-7">{{road.department}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">停车场数:</div>
+                  <div class="ui-grid-col-7">{{road.parkCount}}个</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">停车位置:</div>
+                  <div class="ui-grid-col-7">{{road.parkLocation}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">停车时段:</div>
+                  <div class="ui-grid-col-7">{{road.parkTime}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataScroller>
+    <p-dataScroller *ngIf=" currentLayer.showId=='park' " [value]="parks" [rows]="5" [inline]="true"
+                    scrollHeight="385px" [lazy]="true">
+      <p-header>
+        {{gridHeaderName}}
+        <a class="ui-datascroller-hide" (click)="onGridHide()">隐藏?</a>
+      </p-header>
+      <ng-template let-park pTemplate="item">
+        <div class="ui-grid ui-grid-responsive ui-fluid"
+             style="font-size:16px;padding:10px;border-bottom:1px solid #D5D5D5;" (mouseover)="onGridMouseOver(park)"
+             (mouseout)="onGridMouseout(park)">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12" style="text-align:center;">
+              <i (click)="onLocation(park)" style="cursor:pointer;font-size: 24px;font-style: normal">{{park.name}}</i>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+              <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">停车场编号:</div>
+                  <div class="ui-grid-col-7">{{park.id}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">位置描述:</div>
+                  <div class="ui-grid-col-7">{{park.desc}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">所属单位:</div>
+                  <div class="ui-grid-col-7">{{park.departmentName}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">收费标准:</div>
+                  <div class="ui-grid-col-7">{{park.chargeName}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">泊位数:</div>
+                  <div class="ui-grid-col-7">{{park.placeCount}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">可用泊位数:</div>
+                  <div class="ui-grid-col-7">{{park.placeNoUsedCount}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-12" style="text-align:center;">
+                    <a class="ion-ios-search-strong" (click)="showParkDialog(park)"
+                       style="cursor:pointer;font-size: 14px;">泊位监控</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataScroller>
+    <p-dialog header="{{gridHeaderName}}详情" [(visible)]="displayParkDialog" [responsive]="true" showEffect="fade"
+              [modal]="true"
+              width="650" (onAfterHide)="onParkDialogHide()">
+      <div class="ui-grid ui-grid-responsive ui-fluid"
+           style="font-size:16px;text-align:center;padding:10px">
+        <p-dataGrid [value]="places" [paginator]="true" [rows]="12">
+          <ng-template let-place pTemplate="item">
+            <div class="ui-g-12 ui-md-2 place-detail">
+              <p-panel [header]="place.id" [styleClass]="setPlaceClass(place)">
+                <div class="place-img">
+                  <img *ngIf="place.carType == '1' " src="{{ ( 'app/map/car_white.png' | baAppPicture ) }}" alt=""/>
+                  <img *ngIf="place.carType == '0' " src="{{ ( 'app/map/car_yellow.png' | baAppPicture ) }}" alt=""/>
+                </div>
+                <hr class="ui-widget-content" style="border-top:0">
+                <div *ngIf="place.state == '0' " class="place-car">空闲</div>
+                <div *ngIf="place.state == '1' " class="place-car">{{place.carNo}}</div>
+                <div *ngIf="place.state == '2' " class="place-car">停用</div>
+
+              </p-panel>
+
+            </div>
+          </ng-template>
+        </p-dataGrid>
+
+      </div>
+    </p-dialog>
+
+  </div>
+
+</div>

@@ -1,0 +1,8 @@
+[ {"id":1,"name":"泊位1","type":"普通","area":"分区A","size":"12","coordinate":"112,123","status":"正常"},
+  {"id":2,"name":"泊位2","type":"普通","area":"分区A","size":"36","coordinate":"112,123","status":"正常"},
+  {"id":3,"name":"泊位3","type":"普通","area":"分区A","size":"36","coordinate":"122,139","status":"正常"},
+  {"id":4,"name":"泊位4","type":"充电桩","area":"分区C","size":"36","coordinate":"122,123","status":"正常"},
+  {"id":5,"name":"泊位5","type":"普通","area":"分区B","size":"12","coordinate":"112,123","status":"正常"},
+  {"id":6,"name":"泊位6","type":"普通","area":"分区C","size":"12","coordinate":122,"status":"正常"},
+  {"id":12,"name":"泊位7","type":"普通","area":"分区A","size":"12","coordinate":122,"status":"正常"}
+]

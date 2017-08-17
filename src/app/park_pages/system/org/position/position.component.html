@@ -1,0 +1,55 @@
+<ba-card title="职位管理">
+  <button class="btn btn-info" ><i class="icon ion-plus-round"></i>添加</button>
+  <table class="table" data-show-toggle="false">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>职位名称</th>
+      <th data-breakpoints="xs sm md">职位描述</th>
+      <th data-type="html">操作</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td>1</td>
+      <td>租赁管理员</td>
+      <td>负责产品租赁</td>
+      <td>
+        <a (click)="showDialog()" title="添加人员"><i class="icon ion-person-add"></i></a>&nbsp;&nbsp;
+        <a (click)="giveRoles()" title="赋予角色"><i class="icon ion-person-stalker"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="编辑"><i class="icon ion-compose"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="上移"><i class="icon ion-arrow-up-c"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="下移"><i class="icon ion-arrow-down-c"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="删除"><i class="icon ion-trash-a"></i></a>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>部门总经理</td>
+      <td>主导部门正常事务</td>
+      <td>
+        <a (click)="showDialog()" title="添加人员"><i class="icon ion-person-add"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="赋予角色"><i class="icon ion-person-stalker"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="编辑"><i class="icon ion-compose"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="上移"><i class="icon ion-arrow-up-c"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="下移"><i class="icon ion-arrow-down-c"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="删除"><i class="icon ion-trash-a"></i></a>
+      </td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>部门副总经理</td>
+      <td>协助总经理完成事务</td>
+      <td>
+        <a (click)="showDialog()" title="添加人员"><i class="icon ion-person-add"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="赋予角色"><i class="icon ion-person-stalker"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="编辑"><i class="icon ion-compose"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="上移"><i class="icon ion-arrow-up-c"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="下移"><i class="icon ion-arrow-down-c"></i></a>&nbsp;&nbsp;
+        <a (click)="showDialog()" title="删除"><i class="icon ion-trash-a"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</ba-card>

@@ -1,0 +1,47 @@
+:host /deep/ p-pickList {
+  .ui-picklist-target-controls {
+    display: none;
+  }
+  .ui-picklist-source-controls {
+    display: none;
+  }
+  .ui-picklist-buttons {
+    padding: 0 0.3em;
+  }
+  .ui-picklist .ui-picklist-filter-container {
+    position: relative;
+    width: 100%;
+    padding: 0.5em 0.7em;
+    border-bottom: 0 none;
+  }
+  .ui-picklist .ui-picklist-filter-container .fa {
+    position: absolute;
+    top: 50%;
+    left: 1em;
+    margin-top: -0.6em;
+    right: inherit;
+  }
+  .ui-picklist .ui-picklist-filter-container .ui-picklist-filter {
+    text-indent: 1.2em;
+  }
+  .ui-picklist.ui-picklist-responsive .ui-picklist-listwrapper {
+    width: auto;
+  }
+
+}
+
+:host /deep/ p-tree {
+  .ui-tree {
+    width: 100%;
+    height: 70vh;
+  }
+  span {
+    padding: 0.2em 0.2em;
+  }
+}
+
+:host /deep/ p-dialog {
+  .ui-dialog-footer {
+    text-align: right;
+  }
+}

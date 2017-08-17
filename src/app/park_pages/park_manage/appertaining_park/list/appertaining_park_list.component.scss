@@ -1,0 +1,19 @@
+
+:host /deep/ .appertaining-park {
+  .ui-picklist {
+    .ui-widget-header .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default {
+      color: #464a4c;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 5px;
+      background: #ffffff;
+      box-shadow: none;
+      font-size: 14px;
+    }
+    .ui-widget-content {
+      background: #ffffff;
+      color: #292b2c;
+      font-weight: 400;
+      font-size: 13px;
+    }
+  }
+}

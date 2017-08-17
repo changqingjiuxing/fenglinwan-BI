@@ -1,0 +1,91 @@
+{
+  "login": {
+    "title": "登入",
+    "signup_link": "新建用户？注册",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "注册",
+    "forgot_password": "忘记密码?",
+    "sign_from_app_text": "一键登入",
+    "share_on_facebook": "分享到 Facebook",
+    "share_on_twitter": "分享到 Twitter",
+    "share_on_google_plus": "分享到 Google Plus"
+  },
+  "park": {
+    "menu": {
+      "dashboard": "运营KPI分析",
+      "road_park": "道路停车场管理",
+      "road_park_list": "道路停车场列表",
+      "road_park_detail": "道路停车场详情",
+      "public_park": "公共停车场管理",
+      "public_park_list": "公共停车场列表",
+      "public_park_detail": "公共停车场详情",
+      "appertaining_park": "配建停车场管理",
+      "appertaining_park_list": "配建停车场列表",
+      "appertaining_park_detail": "配建停车场详情",
+      "flow":"流水查询",
+      "order_flow":"订单流水查询",
+      "parking_flow":"停车流水查询",
+      "baseManage": "基础信息管理",
+      "bm_closePark": "封闭停车场管理",
+      "bm_personnelFile": "人员档案管理",
+      "bm_parkManage": "停车场管理",
+      "bm_berthManage": "泊位管理",
+      "bm_chargeRoadSection": "收费路段管理",
+      "bm_chargeStandard": "收费标准管理",
+      "bm_equipment": "设备管理",
+      "bm_personnelBlacklist": "人员黑名单管理",
+      "bm_chargeRoad": "收费路管理",
+      "monitor": "动态信息监控",
+      "m_juNengDaSha": "炬能大厦停车场",
+      "singleParkMap": "炬能大厦停车场",
+      "parkMap": "停车场监控",
+      "tollMap": "收费员监控",
+      "parkRWStatistics": "流水查询",
+      "pr_inDetailRW": "停车详细流水",
+      "pr_subscribeRW": "停车预约流水",
+      "carManage": "车辆管理",
+      "car_ownerInformation": "车主信息管理",
+      "car_information": "车辆信息管理",
+      "car_verifyChange": "待确认费用管理",
+      "car_monthlyPayment": "包月管理",
+      "car_topUp": "预充值管理",
+      "car_monthlyPaymentDetail": "包月明细流水",
+      "car_monthlyPaymentCollect": "包月汇总流水",
+      "car_topUpDetail": "预充值明细流水",
+      "car_topUpCollect": "预充值汇总流水",
+      "statisticAnalysisOfData": "数据统计分析",
+      "personManage": "组织机构",
+      "businessStatistics": "业务统计",
+      "financialStatistics": "财务统计",
+      "billManage": "发票管理",
+      "electronicPayment": "电子支付对账管理",
+      "systemManage": "组织机构管理",
+      "orgManage": "综合面板",
+      "charge": "缴费规则"
+    }
+  },
+  "general": {
+    "akveo": "泰华智慧",
+    "home": "主页",
+    "created_with": ""
+  },
+  "dashboard": {
+    "acquisition_channels": "各区停车状况比例",
+    "users_by_country": "停车分布",
+    "revenue": "营收收入",
+    "feed": "供给",
+    "todo_list": "待办事项",
+    "calendar": "当前时间",
+    "new_visits": "总停车数量",
+    "purchases": "收费金额",
+    "active_users": "总租赁用户",
+    "returned": "Returned",
+    "todo": {
+      "task_todo": "新增任务"
+    },
+    "traffic_chart": {
+      "view_total": "总停车量"
+    }
+  }
+}

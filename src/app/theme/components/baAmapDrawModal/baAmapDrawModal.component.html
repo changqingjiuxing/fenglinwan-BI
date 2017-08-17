@@ -1,0 +1,33 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalHeader}}</h4>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div #baAmapDrawModal class="map-modal {{baAmapClass || ''}}" tabindex="0">
+      <div id="myPageTop">
+        <table>
+          <tr>
+            <td>
+              <label>停车场位置：</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" placeholder="请输入关键字进行搜索" id="tipinput">
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary confirm-btn" id="line">绘制线</button>
+    <button class="btn btn-primary confirm-btn" id="polygon">绘制多边形</button>
+    <button class="btn btn-primary confirm-btn"  (click)="cleanLayers()" >清除</button>
+    <button class="btn btn-primary confirm-btn" (click)="closeModal()">确定</button>
+  </div>
+</div>

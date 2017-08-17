@@ -1,0 +1,90 @@
+@import 'conf/conf';
+
+.modal-header {
+  color: $dropdown-text;
+  border: none;
+  padding: 10px 15px 0 15px;
+}
+
+.modal-footer {
+  border: none;
+}
+
+/**
+   弹出层中表格的样式修改
+ **/
+.modal-content {
+  color: #464a4c;
+  .form-horizontal {
+    label {
+      line-height: 34px;
+      margin-bottom: 0;
+      padding-top: 0 !important;
+    }
+  }
+  .form-group {
+    label {
+      margin-bottom: 5px;
+      color: #292b2c;
+      font-weight: $font-normal;
+      font-size: 13px;
+    }
+  }
+  .form-control {
+    color: #464a4c;
+    @include placeholderStyle(#636c72, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: none;
+    font-size: 14px;
+    &:focus {
+      color: #464a4c;
+      box-shadow: none;
+      border-color: #5cb3fd;
+      background-color: #fff;
+    }
+  }
+  button.btn.btn-default {
+    color: #333;
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-linear-gradient(top, #fff 0, #e0e0e0 100%);
+    background-image: -o-linear-gradient(top, #fff 0, #e0e0e0 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#e0e0e0));
+    background-image: linear-gradient(to bottom, #fff 0, #e0e0e0 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #dbdbdb;
+    border-color: #ccc;
+
+    &:active, &:target {
+      background-color: rgba(0, 0, 0, 0.2);
+      color: $default-text;
+    }
+  }
+
+  label.custom-checkbox {
+    & > span {
+      &:before {
+        border-color: rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+button.close {
+  padding-bottom: 2px;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .2;
+
+  &:hover {
+    opacity: .5;
+  }
+}
+
+.modal-dialog-form {
+  max-width: 600px;
+}
+

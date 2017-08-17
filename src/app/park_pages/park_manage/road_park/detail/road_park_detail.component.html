@@ -1,0 +1,164 @@
+<div class="road-park-detail">
+  <div class="row ">
+    <div class="col-md-7">
+      <ba-card title="基本信息" baCardClass="with-scroll">
+        <form class="form-horizontal">
+          <div class="form-group row">
+            <label class="col-sm-3 form-control-label text-left">编号:</label>
+            <label class="col-sm-3 form-control-label text-right">123</label>
+            <label class="col-sm-3 form-control-label text-left">名称:</label>
+            <label class="col-sm-3 form-control-label text-right">历下停车场</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 form-control-label text-left">泊位数:</label>
+            <label class="col-sm-3 form-control-label text-right">32</label>
+            <label class="col-sm-3 form-control-label text-left">收费标准:</label>
+            <label class="col-sm-3 form-control-label text-right">收费标准一</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 form-control-label text-left">建设时间:</label>
+            <label class="col-sm-3 form-control-label text-right">2017-10-19</label>
+          </div>
+        </form>
+      </ba-card>
+
+    </div>
+    <div class="col-md-5">
+      <ba-amap #parkMap     [initBaseLayersData]="initBaseLayersData" baAmapClass="main-amap"></ba-amap>
+    </div>
+  </div>
+  <hr>
+  <div class="row ">
+    <div class="col-lg-6 col-md-12">
+      <ba-card title="泊位管理" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary" >添加</button>
+            <button type="submit" class="btn btn-primary" >批量生成</button>
+            <table id="showcase-example-1" class="table" data-paging="true" data-paging-size=5   data-paging-limit="5"  data-filtering="true" data-sorting="true"
+                   data-editing="false"  data-editing-always-show="true"></table>          </div>
+        </div>
+
+      </ba-card>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <ba-card title="分区管理" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group required">
+              <label for="areas-no" class="control-label">分区名称</label>
+              <input type="text" class="form-control" id="areas-no" name="areas-no" placeholder="分区名称" required>
+            </div>
+            <button type="submit" class="btn btn-primary" >增加</button>
+            <button type="submit" class="btn btn-primary" >修改</button>
+            <button type="submit" class="btn btn-primary" >删除</button>
+
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="exampleSelect2">分区列表</label>
+              <select multiple class="form-control" id="exampleSelect2">
+                <option >分区A</option>
+                <option >分区B</option>
+                <option >分区C</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <p-pickList [source]="list1" [target]="list2"[dragdrop]="true" [responsive]="true"
+                          [showSourceControls]="false" [showTargetControls]="false"
+                          filterBy="vin" sourceFilterPlaceholder="未分配泊位"
+                          targetFilterPlaceholder="已分配泊位"
+                          [metaKeySelection]="false">
+                <ng-template let-car pTemplate="item">
+                  <div class="ui-helper-clearfix">
+
+                    <div style="font-size:14px;float:right;margin:10px 10px 0 0">{{car.vin}}</div>
+                  </div>
+                </ng-template>
+              </p-pickList>
+            </div>
+          </div>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+  <div>
+      <!-- Table Markup -->
+
+      <!-- Editing Modal Markup -->
+      <div class="modal fade" id="editor-modal" tabindex="-1" role="dialog" aria-labelledby="editor-title">
+        <style scoped>
+          /* provides a red astrix to denote required fields - this should be included in common stylesheet */
+          .form-group.required .control-label:after {
+            content: "*";
+            color: red;
+            margin-left: 4px;
+          }
+        </style>
+        <div class="modal-dialog" role="document">
+          <form class="modal-content form-horizontal" id="editor">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">×</span></button>
+              <h4 class="modal-title" id="editor-title">Add Row</h4>
+            </div>
+            <div class="modal-body">
+              <input type="number" id="id" name="id" class="hidden"/>
+              <div class="form-group required">
+                <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                         required>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+                         required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="jobTitle" class="col-sm-3 control-label">Job Title</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="Job Title">
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="startedOn" class="col-sm-3 control-label">Started On</label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" id="startedOn" name="startedOn" placeholder="Started On"
+                         required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dob" class="col-sm-3 control-label">Date of Birth</label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="status" class="col-sm-3 control-label">Status</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="status" name="status">
+                    <option value="Active">Active</option>
+                    <option value="Disabled">Disabled</option>
+                    <option value="Suspended">Suspended</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

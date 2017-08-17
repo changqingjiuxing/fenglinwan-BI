@@ -1,0 +1,426 @@
+<!--查询-->
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+
+    <form [formGroup]="searchForm" >
+      <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="parkno"><h5>停车场编号</h5></label>
+            <input formControlName="parkno" type="text" class="form-control" id="parkno" placeholder="停车场编号">
+           <!-- <span class="help-block sub-little-text">输入停车场编号</span>-->
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="parkname"><h5>停车场名称</h5></label>
+            <input formControlName="parkname" type="text" class="form-control" id="parkname"
+                   placeholder="停车场名称/拼音首字母">
+            <!--<span class="help-block sub-little-text">输入停车场名称、拼音首字母</span>-->
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="rentalUnit"><h5>经营单位</h5></label>
+            <input type="hidden" #unit formControlName="unit" id="unit">
+            <input #rentalUnit formControlName="rentalUnit" type="text" class="form-control" id="rentalUnit"
+                   (focus)="openRentalUnitPage()" placeholder="经营单位">
+           <!-- <span class="help-block sub-little-text">停车场的租用单位</span>-->
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="subdistrictOffice"><h5>街道办事处</h5></label>
+            <input formControlName="subdistrict" type="text" class="form-control" id="subdistrictOffice"
+                   placeholder="街道办事处">
+            <!--<span class="help-block sub-little-text">停车场在地理位置上的街道办事处</span>-->
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="parkLocation"><h5>所在位置</h5></label>
+            <input formControlName="location" type="text" class="form-control" id="parkLocation" placeholder="所在位置">
+           <!-- <span class="help-block sub-little-text">停车场的地理位置信息</span>-->
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="startRoad"><h5>起始道路</h5></label>
+            <input formControlName="startRoad" type="text" class="form-control" id="startRoad" placeholder="起始道路">
+            <!--<span class="help-block sub-little-text">停车场的起始道路信息</span>-->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="form-group">
+            <label for="endRoad"><h5>终止道路</h5></label>
+            <input formControlName="endRoad" type="text" class="form-control" id="endRoad" placeholder="终止道路">
+            <!--<span class="help-block sub-little-text">停车场的终止道路信息</span>-->
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-sm-6">
+
+          <div class="form-group">
+            <label for="operationDate"><h5>营运日期</h5></label>
+            <div class="input-group" id="operationDate">
+              <input formControlName="time" class="form-control" placeholder="营运日期" name="dp" disabled="disabled"
+                     ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-addon" (click)="d.toggle()">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class="pull-left">
+          <button class="btn btn-default btn-with-icon" (click)="doQuery()">
+            <i class="ion-ios-list-outline"></i>
+            <span>查询</span>
+          </button>
+          <span>&nbsp;&nbsp;</span>
+          <button class="btn btn-default btn-with-icon" (click)="openAddParkPage()">
+            <i class="ion-ios-plus-outline"></i>
+            <span>添加</span>
+          </button>
+          <span>&nbsp;&nbsp;</span>
+          <button type="reset"
+                  class="btn btn-default btn-with-icon">
+            <i class="ion-trash-b"></i>
+            <span>清空搜索条件</span>
+          </button>
+        </div>
+
+        <div class="pull-right form-inline">
+          <select class="form-control c-select"
+                  [(ngModel)]="getParams.changeArea" (ngModelChange)="doQuery()">
+            <option value="all" default>全部收费标准</option>
+            <option value="1">重点收费区</option>
+            <option value="0">非重点收费区</option>
+          </select>
+
+          <select class="form-control c-select"
+                  [(ngModel)]="getParams.isStanRoad" (ngModelChange)="doQuery()">
+            <option value="all" default>所有停车场</option>
+            <option value="1">启用</option>
+            <option value="0">未启用</option>
+          </select>
+
+          <select class="form-control c-select"
+                  [(ngModel)]="getParams.parkStatus" (ngModelChange)="doQuery()">
+            <option value="all" default>所有道路</option>
+            <option value="1">示范路</option>
+            <option value="0">非示范路</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <!--https://www.primefaces.org/primeng/#/datatable/templating-->
+    <!--图表组件
+      cars：表示具体表格中的实体对象，
+      [style]：表示设置属性，
+      field：表示与后台的数据绑定，
+      header：表示表头，
+      selection：表示选择某一条数据后数据保存的位置，
+      dataKey：数据键，
+      分页相关：
+        rows：表示多少行，
+        paginator：是否分页，
+        pageLinks：显示的页面链接数量，
+        rowsPerPageOptions：可选择的页面分页数量
+      [sortable]：按行排序，
+      sortMode：多行排序，
+      resizableColumns：可调整列宽，
+      reorderableColumns:调整列顺序，
+      scrollable：滚动条,
+      scrollHeight: 超过多高时显示，
+      scrollWidth：超过多宽时显示，
+      lazy：懒加载，
+      [totalRecords]：总记录数，
+      onLazyLoad：加载事件
+      -->
+
+    <p-dataTable [value]="parks" [(selection)]="selectedParks" [dataKey]="no" scrollable="true"
+                 scrollWidth="100%"  scrollHeight="100%"  resizableColumns="true" reorderableColumns="true" [responsive]="true">
+
+      <p-column selectionMode="multiple" [style]="{'width':'38px','height':'38px'}"></p-column>
+
+      <p-column field="no" [style]="{'width':'100px'}" header="停车场编号"></p-column>
+      <p-column field="name" [style]="{'width':'120px'}" header="停车场名称"></p-column>
+      <p-column field="places" [style]="{'width':'100px'}" header="泊位数"></p-column>
+      <p-column field="unit" [style]="{'width':'180px'}" header="所属单位"></p-column>
+      <p-column field="change" [style]="{'width':'100px'}" header="收费标准"></p-column>
+      <p-column field="load" [style]="{'width':'160px'}" header="所在道路"></p-column>
+      <p-column field="loadtype" [style]="{'width':'100px'}" header="道路类型"></p-column>
+      <p-column field="bsc" [style]="{'width':'120px'}" header="街道办事处"></p-column>
+      <p-column field="sload" [style]="{'width':'160px'}" header="起始道路"></p-column>
+      <p-column field="eload" [style]="{'width':'160px'}" header="终止道路"></p-column>
+      <p-column field="fload" [style]="{'width':'100px'}" header="道路哪侧"></p-column>
+      <p-column field="changetype" [style]="{'width':'100px'}" header="收费方式"></p-column>
+      <p-column field="jc" [style]="{'width':'100px'}" header="检测方式"></p-column>
+      <!--<p-column field="latitude" header="经度"></p-column>
+      <p-column field="longitude" header="纬度"></p-column>-->
+      <p-column field="bs" [style]="{'width':'120px'}" header="营运起始日期"></p-column>
+      <p-column field="be" [style]="{'width':'120px'}" header="营运结束日期"></p-column>
+      <p-column field="states" [style]="{'width':'100px'}" header="状态"></p-column>
+      <p-column field="remark" [style]="{'width':'100px'}" header="备注"></p-column>
+
+      <p-column styleClass="col-button"  [style]="{'width':'100px','text-align':'center'}">
+        <ng-template pTemplate="header">
+          <span>操作</span>
+        </ng-template>
+        <ng-template let-park="rowData" pTemplate="body">
+          <a (click)="openEditPage(park)" ><i class="ion-edit"></i></a><span>&nbsp;&nbsp;</span>
+          <a (click)="confirm(park)"><i class="ion-trash-a"></i></a>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+    <br>
+    <div>
+      <span class="pull-right">显示 1 - 20 条，共 325 条</span>
+      <ngb-pagination class="pull-left" [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true"
+                      [boundaryLinks]="true" (pageChange)="doQuery($event)"></ngb-pagination>
+    </div>
+  </div>
+</div>
+
+<!--选择营运单位-->
+<p-dialog header="经营单位列表" [(visible)]="unitDisplay" [width]="800" modal="modal" [responsive]="true">
+  <p-dataTable [value]="units" selectionMode="single"
+               [(selection)]="selectedUnit" dataKey="no" (onRowDblclick)="dbUnit($event)"
+               resizableColumns="true" reorderableColumns="true">
+    <p-column field="no" header="运营单位编号" [sortable]="true" [style]="{'height':'38px'}"></p-column>
+    <p-column field="name" header="运营单位名称" [sortable]="true"></p-column>
+    <p-column field="header" header="运营单位负责人"></p-column>
+    <p-column field="phone" header="运营单位电话"></p-column>
+  </p-dataTable>
+  <br>
+  <div>
+    <span class="pull-right">显示 1 - 20 条，共 325 条</span>
+    <ngb-pagination class="pull-left" [collectionSize]="120" [(page)]="page2" [maxSize]="5" [rotate]="true"
+                    [boundaryLinks]="true"></ngb-pagination>
+  </div>
+</p-dialog>
+
+<p-confirmDialog width="425"></p-confirmDialog>
+
+<!--添加-->
+<p-dialog header="添加停车场" [(visible)]="display" modal="modal" [responsive]="true">
+  <form name="add" >
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="parkno2"><h5>停车场编号</h5></label>
+          <input type="text" class="form-control" id="parkno2"
+                 placeholder="停车场编号">
+          <!--<span class="help-block sub-little-text">输入停车场编号</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="parkname2"><h5>停车场名称</h5></label>
+          <input type="text" class="form-control" id="parkname2" placeholder="停车场名称">
+          <!--<span class="help-block sub-little-text">输入停车场名称</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="placeNum2"><h5>泊位数量</h5></label>
+          <input type="text" class="form-control" id="placeNum2" placeholder="泊位数量">
+         <!-- <span class="help-block sub-little-text">设置停车场总的泊位数量</span>-->
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="placeStartNo2"><h5>泊位开始编号</h5></label>
+          <input type="text" class="form-control" id="placeStartNo2" placeholder="泊位开始编号">
+          <!--<span class="help-block sub-little-text">停车场总泊位的开始编号</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="affiliatedUnit2"><h5>所属单位</h5></label>
+          <input type="hidden" #addUnit>
+          <input type="text" #addUnitName (focus)="openAddRentalUnitPage()" class="form-control" id="affiliatedUnit2"
+                 placeholder="所属单位">
+          <!--<span class="help-block sub-little-text">停车场运营单位名称</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="subdistrictOffice2"><h5>街道办事处</h5></label>
+          <input type="text" class="form-control" id="subdistrictOffice2" placeholder="街道办事处">
+          <!--<span class="help-block sub-little-text">输入街道办事名称</span>-->
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="chargingStandard2"><h5>收费标准</h5></label>
+          <select class="form-control" id="chargingStandard2">
+            <option value="">全部</option>
+            <option value="1">重点收费区</option>
+            <option value="2">次重点收费区</option>
+          </select>
+         <!-- <span class="help-block sub-little-text">选择停车场的收费标准</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="stateParking2"><h5>状态</h5></label>
+          <select class="form-control" id="stateParking2">
+            <option value="">全部</option>
+            <option value="1">启用</option>
+            <option value="2">未启用</option>
+          </select>
+         <!-- <span class="help-block sub-little-text">设置停车场启用状态</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="whereRoad2"><h5>所在道路</h5></label>
+          <input type="text" class="form-control" id="whereRoad2" placeholder="所在道路">
+          <!--<span class="help-block sub-little-text">设置停车场所在道路</span>-->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="roadType2"><h5>道路类型</h5></label>
+          <select id="roadType2" class="form-control">
+            <option value="">全部</option>
+            <option value="1">主干道</option>
+            <option value="2">干道</option>
+          </select>
+          <!--<span class="help-block sub-little-text">选择停车场所在道路类型</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="startRoad2"><h5>起始道路</h5></label>
+          <input type="text" class="form-control" id="startRoad2" aria-describedby="emailHelp"
+                 placeholder="起始道路">
+          <!--<span class="help-block sub-little-text">输入停车场的起始道路名称</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="endRoad2"><h5>终止道路</h5></label>
+          <input type="text" class="form-control" id="endRoad2" aria-describedby="emailHelp"
+                 placeholder="终止道路">
+          <!--<span class="help-block sub-little-text">输入停车场的终止道路名名称</span>-->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="roadSide2"><h5>道路哪侧</h5></label>
+          <select class="form-control" id="roadSide2">
+            <option value="">全部</option>
+            <option value="1">东</option>
+            <option value="2">西</option>
+            <option value="3">南</option>
+            <option value="4">北</option>
+          </select>
+         <!-- <span class="help-block sub-little-text">选择停车场所在道路的方向</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="tollCollectionManner2"><h5>收费方式</h5></label>
+          <select class="form-control" id="tollCollectionManner2">
+            <option value="">全部</option>
+            <option value="1">人工缴费</option>
+            <option value="2">电子收费</option>
+          </select>
+          <!--<span class="help-block sub-little-text">选择停车场的收费方式</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="longitude2"><h5>经度</h5></label>
+          <input type="text" class="form-control" id="longitude2" placeholder="经度">
+          <!--<span class="help-block sub-little-text">停车场大体的经度</span>-->
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="latitude2"><h5>纬度</h5></label>
+          <input type="text" class="form-control" id="latitude2" placeholder="纬度">
+          <!--<span class="help-block sub-little-text">停车场大体的纬度</span>-->
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="busStartTime2"><h5>营运开始时间</h5></label>
+          <div class="input-group" id="busStartTime2">
+            <input class="form-control" placeholder="营运开始时间" name="sdp" disabled="disabled"
+                   ngbDatepicker #ds="ngbDatepicker">
+            <div class="input-group-addon" (click)="ds.toggle()">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="busEndTime2"><h5>营运结束时间</h5></label>
+          <div class="input-group" id="busEndTime2">
+            <input class="form-control" placeholder="营运结束时间" name="sdp" disabled="disabled"
+                   ngbDatepicker #de="ngbDatepicker">
+            <div class="input-group-addon" (click)="de.toggle()">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="form-group">
+          <label for="detectionMode2"><h5>检测方式</h5></label>
+          <select class="form-control" id="detectionMode2">
+            <option value="">全部</option>
+            <option value="1">0</option>
+            <option value="2">1</option>
+            <option value="3">2</option>
+          </select>
+         <!-- <span class="help-block sub-little-text">停车场检测方式</span>-->
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-12">
+        <div class="form-group">
+          <label for="remark2"><h5>备注</h5></label>
+          <input type="text" class="form-control" id="remark2" placeholder="备注">
+          <!--<span class="help-block sub-little-text">其他相关信息</span>-->
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <button type="button" pButton icon="fa-check" (click)="display=false" label="保存"></button>
+      <button type="button" pButton icon="fa-close" (click)="display=false" label="取消"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+

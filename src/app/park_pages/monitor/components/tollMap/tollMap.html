@@ -1,0 +1,98 @@
+<div class="row toll-map">
+
+  <div class="main-map" [ngClass]="{'col-lg-12 col-md-12 col-sm-12 ': !show,'col-lg-9 col-md-8 col-sm-12 ':show}"
+       [@mapAnimate]="mapState">
+    <ba-card title="收费员监控" search="{{gridHeaderName}}" baCardClass="main-map-bacard" (onCardSearch)="onCardSearch($event)">
+      <ba-amap #tollMap baAmapClass="main-amap"
+               [initZoom] = "12"
+               [initBaseLayersData]="initBaseLayersData"
+               [initOverLayersData]="initOverLayersData"
+               (onLoadOverlayLayersData)="onLoadOverlayLayersData($event)"
+               (onChangeCurrentView)="onChangeCurrentView($event)"
+               (onChangeCurrentData)="onChangeCurrentData($event)"></ba-amap>
+    </ba-card>
+  </div>
+
+  <div class="link-grid col-lg-3 col-md-4 col-sm-12" [hidden]="!show" [@linkGridAnimate]="gridState">
+    <p-dataScroller *ngIf=" currentLayer.showId=='all' " [value]="tolls" styleClass="datascroller-grid"
+                    scrollHeight="100%" [rows]="5" [inline]="true" [lazy]="true">
+      <p-header>
+        {{gridHeaderName}}
+        <a class="ui-datascroller-hide" (click)="onGridHide()">隐藏?</a>
+      </p-header>
+      <ng-template let-toll pTemplate="item">
+        <div class="ui-grid ui-grid-responsive ui-fluid"
+             style="font-size:16px;padding:10px;border-bottom:1px solid #D5D5D5;" (mouseover)="onGridMouseOver(toll)"
+             (mouseout)="onGridMouseOut(toll)">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12" style="text-align:center;">
+              <i (click)="onLocation(toll)" style="cursor:pointer;font-size: 24px;font-style: normal">{{toll.name}}</i>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+              <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">工号:</div>
+                  <div class="ui-grid-col-7">{{toll.no}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">所属单位:</div>
+                  <div class="ui-grid-col-7">{{toll.departmentName}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">定位时间:</div>
+                  <div class="ui-grid-col-7">{{toll.name}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">联系方式:</div>
+                  <div class="ui-grid-col-7">{{toll.tel}}</div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-5">定位时间:</div>
+                  <div class="ui-grid-col-7">{{toll.time}}</div>
+                </div>
+                <!--
+                                <div class="ui-grid-row">
+                                  <div class="ui-grid-col-12" style="text-align:center;">
+                                    <a class="ion-ios-search-strong" (click)="showParkDialog(toll)"
+                                       style="cursor:pointer;font-size: 14px;">泊位监控</a>
+                                  </div>
+                                </div>
+                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataScroller>
+    <p-dialog header="{{gridHeaderName}}详情" [(visible)]="displayParkDialog" [responsive]="true" showEffect="fade"
+              [modal]="true"
+              width="650" (onAfterHide)="onParkDialogHide()">
+      <div class="ui-grid ui-grid-responsive ui-fluid"
+           style="font-size:16px;text-align:center;padding:10px">
+        <p-dataGrid [value]="places" [paginator]="true" [rows]="12">
+          <ng-template let-place pTemplate="item">
+            <div class="ui-g-12 ui-md-2 place-detail">
+              <p-panel [header]="place.id" [styleClass]="setPlaceClass(place)">
+                <div class="place-img">
+                  <img *ngIf="place.carType == '1' " src="{{ ( 'app/map/car_white.png' | baAppPicture ) }}" alt=""/>
+                  <img *ngIf="place.carType == '0' " src="{{ ( 'app/map/car_yellow.png' | baAppPicture ) }}" alt=""/>
+                </div>
+                <hr class="ui-widget-content" style="border-top:0">
+                <div *ngIf="place.state == '0' " class="place-car">空闲</div>
+                <div *ngIf="place.state == '1' " class="place-car">{{place.carNo}}</div>
+                <div *ngIf="place.state == '2' " class="place-car">停用</div>
+
+              </p-panel>
+
+            </div>
+          </ng-template>
+        </p-dataGrid>
+
+      </div>
+    </p-dialog>
+
+  </div>
+
+</div>

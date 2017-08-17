@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+.amap-sug-result {
+  z-index: 1999;
+}
+.amap-logo, .amap-copyright {
+  display: none;
+}
+.amap-ui-control-theme-my-red .amap-ui-control-layer {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  background: red;
+}
+.amap-ui-control-theme-my-red .amap-ui-control-layer-expanded {
+  color: #fff;
+  background: red;
+}
+.amap-ui-control-theme-my-red .amap-ui-control-layer-toggle {
+  color: #fff;
+}
+.amap-ui-control-theme-my-red .amap-ui-control-layer-overlay-item-hidden {
+  display: none;
+}
+.amap-ui-control-layer-overlay-item-regionOverlay {
+  display: none;
+}
+.amap-info-content {
+  font-size: 12px;
+}

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "001",
+    "no": "001",
+    "name": "道路车场1",
+    "overlayerId": "roadParkOverlay",
+    "path": [
+      [
+        117.079642,
+        36.665592
+      ],
+      [
+        117.09964,
+        36.663182
+      ]
+    ],
+    "lng": 117.665592,
+    "lat": 36.663182,
+    "chargeName": "收费标准1",
+    "desc": "XX路XX米XX路西",
+    "departmentName": "历下分公司",
+    "placeCount": 40,
+    "placeNoUsedCount": 33,
+    "status": "正常",
+    "operateBeginTime": "2016-08-07",
+    "operateEndTime": "2016-12-12",
+    "createTime": "2016-12-12"
+
+  },
+  {
+    "id": "0011",
+    "no": "001",
+    "name": "道路车场2",
+    "overlayerId": "roadParkOverlay",
+    "path": [
+      [
+        117.227982,
+        36.672622
+      ],
+      [
+        117.227869,
+        36.672467
+      ],
+      [
+        117.228776,
+        36.672115
+      ]
+    ],
+    "lng": 117.227982,
+    "lat": 36.672622,
+    "chargeName": "收费标准1",
+    "desc": "XX路XX米XX路西",
+    "departmentName": "历下分公司",
+    "placeCount": 30,
+    "placeNoUsedCount": 2,
+    "status": "正常",
+    "operateBeginTime": "2016-08-07",
+    "operateEndTime": "2016-12-12",
+    "createTime": "2016-12-12"
+
+  },
+  {
+    "id": "0021",
+    "no": "001",
+    "name": "道路车场3",
+    "overlayerId": "roadParkOverlay",
+    "path": [
+      [
+        117.12849,
+        36.644873
+      ],
+      [
+        117.127446,
+        36.644434
+      ],
+      [
+        117.127928,
+        36.64396
+      ],
+      [
+        117.128905,
+        36.644408
+      ],
+      [
+        117.128358,
+        36.644554
+      ],
+      [
+        117.128315,
+        36.64470
+      ]
+    ],
+    "lng": 117.12849,
+    "lat": 36.644873,
+    "chargeName": "收费标准1",
+    "desc": "XX路XX米XX路西",
+    "departmentName": "历下分公司",
+    "placeCount": 40,
+    "placeNoUsedCount": 40,
+    "status": "正常",
+    "operateBeginTime": "2016-08-07",
+    "operateEndTime": "2016-12-12",
+    "createTime": "2016-12-12"
+
+  }
+]
